@@ -13,26 +13,17 @@ function AdminRoute({ children }) {
 export default function App() {
   return (
     <BrowserRouter>
-      <Routes>
-        {/* Admin login — no navbar */}
-        <Route path="/admin" element={<AdminLoginPage />} />
-
-        {/* All other routes with navbar */}
-        <Route
-          path="*"
-          element={
-            <div className="min-h-screen" style={{ backgroundColor: "#fdf6f0" }}>
-              <Navbar />
-              <Routes>
-                <Route path="/" element={<AdminRoute><EventsPage /></AdminRoute>} />
-                <Route path="/upload" element={<AdminRoute><UploadPage /></AdminRoute>} />
-                <Route path="/match" element={<MatchPage />} />
-                <Route path="*" element={<Navigate to="/match" replace />} />
-              </Routes>
-            </div>
-          }
-        />
-      </Routes>
+      <div className="min-h-screen" style={{ backgroundColor: "#fdf6f0" }}>
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<Navigate to="/match" replace />} />
+          <Route path="/match" element={<MatchPage />} />
+          <Route path="/admin" element={<AdminLoginPage />} />
+          <Route path="/events" element={<AdminRoute><EventsPage /></AdminRoute>} />
+          <Route path="/upload" element={<AdminRoute><UploadPage /></AdminRoute>} />
+          <Route path="*" element={<Navigate to="/match" replace />} />
+        </Routes>
+      </div>
     </BrowserRouter>
   );
 }

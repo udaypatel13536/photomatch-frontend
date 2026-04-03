@@ -33,7 +33,7 @@ export default function Navbar() {
         </div>
         <p className="text-xs text-rose-400 tracking-widest uppercase">Wedding Memories</p>
         <div className="flex gap-2 mt-1 items-center">
-          {admin && <Link to="/" className={linkClass("/")}>Events</Link>}
+          {admin && <Link to="/events" className={linkClass("/events")}>Events</Link>}
           {admin && <Link to="/upload" className={linkClass("/upload")}>Upload</Link>}
           <Link to="/match" className={linkClass("/match")}>Find Me</Link>
           {admin ? (

@@ -10,7 +10,7 @@ export default function AdminLoginPage() {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (login(password)) {
-      navigate("/");
+      navigate("/events");
     } else {
       setError("Incorrect password.");
       setPassword("");
