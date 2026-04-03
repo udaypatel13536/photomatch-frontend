@@ -185,7 +185,7 @@ export default function MatchPage() {
                 <img
                   src={thumbnailUrl(match.downloadUrl)}
                   alt={match.filename}
-                  className="w-full h-36 object-cover"
+                  className="w-full h-36 object-contain bg-gray-100"
                   loading="lazy"
                 />
                 <div className="p-2">
