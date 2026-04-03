@@ -5,7 +5,7 @@ import { getEvents, matchSelfie } from "../api/client";
 
 function thumbnailUrl(url) {
   if (!url) return url;
-  return url.replace("/object/public/", "/render/image/public/") + "?width=400&quality=70";
+  return url.replace("/object/public/", "/render/image/public/") + "?width=800&quality=70&resize=contain";
 }
 
 export default function MatchPage() {
