@@ -11,7 +11,7 @@ function thumbnailUrl(url) {
 export default function MatchPage() {
   const [events, setEvents] = useState([]);
   const [selectedEvent, setSelectedEvent] = useState("");
-  const [threshold, setThreshold] = useState(0.65);
+  const [threshold, setThreshold] = useState(0.45);
   const [mode, setMode] = useState("camera");
   const [selfiePreview, setSelfiePreview] = useState(null);
   const [selfieBlob, setSelfieBlob] = useState(null);
@@ -152,7 +152,7 @@ export default function MatchPage() {
             Match strictness: {Math.round(threshold * 100)}%
           </label>
           <input
-            type="range" min={0.65} max={0.9} step={0.05}
+            type="range" min={0.45} max={0.9} step={0.05}
             value={threshold}
             onChange={(e) => setThreshold(parseFloat(e.target.value))}
             className="w-full accent-rose-500"
