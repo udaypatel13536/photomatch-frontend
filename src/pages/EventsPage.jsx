@@ -14,7 +14,7 @@ export default function EventsPage() {
       const data = await getEvents();
       setEvents(data.events);
     } catch {
-      setError("Failed to load events. Is the backend running?");
+      setError("Failed to load events.");
     } finally {
       setLoading(false);
     }
@@ -40,17 +40,26 @@ export default function EventsPage() {
   };
 
   return (
-    <div className="max-w-2xl mx-auto px-4 py-6">
-      <h1 className="text-xl font-bold mb-4">Events</h1>
+    <div className="max-w-2xl mx-auto px-4 py-8">
+      {/* Header */}
+      <div className="text-center mb-8">
+        <p className="text-rose-300 tracking-widest text-sm uppercase mb-1">✦ Our Special Day ✦</p>
+        <h1 className="text-4xl text-rose-900" style={{ fontFamily: "'Cormorant Garamond', serif", fontStyle: "italic" }}>
+          Wedding Events
+        </h1>
+        <div className="w-16 h-px bg-rose-300 mx-auto mt-3" />
+      </div>
 
-      <form onSubmit={handleCreate} className="bg-white border border-gray-200 rounded-xl p-4 mb-6 space-y-3">
-        <h2 className="font-semibold text-gray-700">Create New Event</h2>
+      <form onSubmit={handleCreate} className="bg-white border border-rose-100 rounded-2xl p-5 mb-8 shadow-sm space-y-3">
+        <h2 className="text-lg text-rose-900" style={{ fontFamily: "'Cormorant Garamond', serif" }}>
+          Create New Event
+        </h2>
         <input
           type="text"
-          placeholder="Event name *"
+          placeholder="Event name (e.g. Wedding Ceremony)"
           value={name}
           onChange={(e) => setName(e.target.value)}
-          className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
+          className="w-full border border-rose-200 rounded-xl px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-rose-300 bg-rose-50"
           required
         />
         <input
@@ -58,31 +67,40 @@ export default function EventsPage() {
           placeholder="Description (optional)"
           value={description}
           onChange={(e) => setDescription(e.target.value)}
-          className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
+          className="w-full border border-rose-200 rounded-xl px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-rose-300 bg-rose-50"
         />
-        {error && <p className="text-red-500 text-sm">{error}</p>}
+        {error && <p className="text-red-400 text-sm">{error}</p>}
         <button
           type="submit"
           disabled={creating}
-          className="w-full bg-blue-600 text-white py-2 rounded-lg text-sm font-semibold hover:bg-blue-700 disabled:opacity-50"
+          className="w-full py-2 rounded-xl text-sm tracking-widest uppercase font-light text-white disabled:opacity-50"
+          style={{ backgroundColor: "#9f3f4f" }}
         >
           {creating ? "Creating..." : "Create Event"}
         </button>
       </form>
 
       {loading ? (
-        <p className="text-gray-500 text-sm">Loading events...</p>
+        <p className="text-rose-300 text-center text-sm">Loading events...</p>
       ) : events.length === 0 ? (
-        <p className="text-gray-400 text-center py-12 text-sm">No events yet. Create one above.</p>
+        <div className="text-center py-12">
+          <p className="text-4xl mb-3">💍</p>
+          <p className="text-rose-300 text-sm">No events yet. Create your first one above.</p>
+        </div>
       ) : (
         <div className="space-y-3">
           {events.map((ev) => (
-            <div key={ev.id} className="bg-white border border-gray-200 rounded-xl p-4">
-              <p className="font-semibold text-sm">{ev.name}</p>
-              {ev.description && <p className="text-sm text-gray-500">{ev.description}</p>}
-              <p className="text-xs text-gray-400 mt-1">
-                {ev.photo_count} photo{ev.photo_count !== "1" ? "s" : ""} · {new Date(ev.created_at).toLocaleDateString()}
-              </p>
+            <div key={ev.id} className="bg-white border border-rose-100 rounded-2xl p-4 shadow-sm">
+              <div className="flex items-start justify-between">
+                <div>
+                  <p className="font-semibold text-rose-900 text-sm">{ev.name}</p>
+                  {ev.description && <p className="text-xs text-rose-400 mt-0.5">{ev.description}</p>}
+                  <p className="text-xs text-rose-300 mt-1">
+                    {ev.photo_count} photo{ev.photo_count !== "1" ? "s" : ""} · {new Date(ev.created_at).toLocaleDateString()}
+                  </p>
+                </div>
+                <span className="text-rose-200 text-xl">🌸</span>
+              </div>
             </div>
           ))}
         </div>

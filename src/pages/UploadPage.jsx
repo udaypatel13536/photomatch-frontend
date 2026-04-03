@@ -49,15 +49,22 @@ export default function UploadPage() {
   };
 
   return (
-    <div className="max-w-2xl mx-auto px-4 py-6">
-      <h1 className="text-xl font-bold mb-4">Upload Event Photos</h1>
+    <div className="max-w-2xl mx-auto px-4 py-8">
+      {/* Header */}
+      <div className="text-center mb-8">
+        <p className="text-rose-300 tracking-widest text-sm uppercase mb-1">✦ Preserve the Memories ✦</p>
+        <h1 className="text-4xl text-rose-900" style={{ fontFamily: "'Cormorant Garamond', serif", fontStyle: "italic" }}>
+          Upload Photos
+        </h1>
+        <div className="w-16 h-px bg-rose-300 mx-auto mt-3" />
+      </div>
 
-      <div className="mb-4">
-        <label className="block text-sm font-medium text-gray-700 mb-1">Select Event</label>
+      <div className="bg-white border border-rose-100 rounded-2xl p-5 mb-5 shadow-sm">
+        <label className="block text-sm text-rose-700 mb-2 tracking-wide">Select Event</label>
         <select
           value={selectedEvent}
           onChange={(e) => setSelectedEvent(e.target.value)}
-          className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
+          className="w-full border border-rose-200 rounded-xl px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-rose-300 bg-rose-50"
         >
           {events.length === 0 && <option value="">No events — create one first</option>}
           {events.map((ev) => (
@@ -68,56 +75,59 @@ export default function UploadPage() {
 
       <div
         {...getRootProps()}
-        className={`border-2 border-dashed rounded-xl p-8 text-center cursor-pointer transition-colors ${
-          isDragActive ? "border-blue-400 bg-blue-50" : "border-gray-300"
+        className={`border-2 border-dashed rounded-2xl p-10 text-center cursor-pointer transition-colors ${
+          isDragActive ? "border-rose-400 bg-rose-50" : "border-rose-200 bg-white hover:border-rose-400"
         }`}
       >
         <input {...getInputProps()} />
-        <p className="text-2xl mb-2">📸</p>
-        <p className="text-gray-600 text-sm font-medium">
-          {isDragActive ? "Drop photos here..." : "Tap to select photos"}
+        <p className="text-4xl mb-3">🌸</p>
+        <p className="text-rose-700 text-sm font-light tracking-wide">
+          {isDragActive ? "Drop your photos here..." : "Tap to select wedding photos"}
         </p>
-        <p className="text-xs text-gray-400 mt-1">JPG, PNG, WEBP — up to 50 MB each</p>
+        <p className="text-xs text-rose-300 mt-2">JPG, PNG, WEBP — up to 50 MB each</p>
       </div>
 
       {files.length > 0 && (
-        <p className="mt-3 text-sm text-gray-600 font-medium">
-          {files.length} photo{files.length !== 1 ? "s" : ""} selected
+        <p className="mt-3 text-sm text-rose-600 text-center">
+          {files.length} photo{files.length !== 1 ? "s" : ""} ready to upload
         </p>
       )}
 
-      {error && <p className="mt-3 text-red-500 text-sm">{error}</p>}
+      {error && <p className="mt-3 text-red-400 text-sm text-center">{error}</p>}
 
       {uploading && (
         <div className="mt-4">
-          <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
-            <div className="h-full bg-blue-500 transition-all" style={{ width: `${progress}%` }} />
+          <div className="h-1.5 bg-rose-100 rounded-full overflow-hidden">
+            <div className="h-full bg-rose-400 transition-all" style={{ width: `${progress}%` }} />
           </div>
-          <p className="text-sm text-gray-500 mt-1">Uploading & detecting faces... {progress}%</p>
+          <p className="text-xs text-rose-400 mt-2 text-center">Uploading & detecting faces... {progress}%</p>
         </div>
       )}
 
       <button
         onClick={handleUpload}
         disabled={uploading || files.length === 0 || !selectedEvent}
-        className="mt-4 w-full bg-blue-600 text-white py-3 rounded-xl font-semibold text-sm hover:bg-blue-700 disabled:opacity-50"
+        className="mt-5 w-full py-3 rounded-xl text-sm tracking-widest uppercase font-light text-white disabled:opacity-40"
+        style={{ backgroundColor: "#9f3f4f" }}
       >
         {uploading ? "Processing..." : "Upload & Detect Faces"}
       </button>
 
       {result && (
-        <div className="mt-5 bg-green-50 border border-green-200 rounded-xl p-4">
-          <p className="font-semibold text-green-800 text-sm">{result.message}</p>
-          <ul className="mt-3 space-y-1">
+        <div className="mt-6 bg-white border border-rose-100 rounded-2xl p-5 shadow-sm">
+          <p className="text-center text-rose-900 font-semibold text-sm" style={{ fontFamily: "'Cormorant Garamond', serif" }}>
+            {result.message}
+          </p>
+          <ul className="mt-4 space-y-2">
             {result.results.map((r, i) => (
               <li key={i} className="flex items-center gap-2 text-sm">
-                <span className={`w-2 h-2 rounded-full flex-shrink-0 ${r.status === "success" ? "bg-green-500" : "bg-red-400"}`} />
-                <span className="text-gray-700 truncate">{r.filename}</span>
+                <span className={`w-2 h-2 rounded-full flex-shrink-0 ${r.status === "success" ? "bg-rose-400" : "bg-red-300"}`} />
+                <span className="text-rose-800 truncate">{r.filename}</span>
                 {r.status === "success" && (
-                  <span className="text-gray-400 flex-shrink-0">— {r.facesDetected} face{r.facesDetected !== 1 ? "s" : ""}</span>
+                  <span className="text-rose-300 flex-shrink-0 text-xs">{r.facesDetected} face{r.facesDetected !== 1 ? "s" : ""}</span>
                 )}
                 {r.status === "error" && (
-                  <span className="text-red-500 flex-shrink-0 text-xs">{r.error}</span>
+                  <span className="text-red-400 flex-shrink-0 text-xs">{r.error}</span>
                 )}
               </li>
             ))}

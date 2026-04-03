@@ -63,27 +63,37 @@ export default function MatchPage() {
   };
 
   return (
-    <div className="max-w-2xl mx-auto px-4 py-6">
-      <h1 className="text-xl font-bold mb-4">Find My Photos</h1>
+    <div className="max-w-2xl mx-auto px-4 py-8">
+      {/* Header */}
+      <div className="text-center mb-8">
+        <p className="text-rose-300 tracking-widest text-sm uppercase mb-1">✦ Relive the Magic ✦</p>
+        <h1 className="text-4xl text-rose-900" style={{ fontFamily: "'Cormorant Garamond', serif", fontStyle: "italic" }}>
+          Find My Photos
+        </h1>
+        <div className="w-16 h-px bg-rose-300 mx-auto mt-3" />
+      </div>
 
       {/* Selfie input */}
-      <div className="bg-white border border-gray-200 rounded-xl p-4 mb-4">
-        <div className="flex gap-2 mb-3">
+      <div className="bg-white border border-rose-100 rounded-2xl p-5 mb-4 shadow-sm">
+        <p className="text-sm text-rose-700 tracking-wide mb-3">Take or upload your selfie</p>
+        <div className="flex gap-2 mb-4">
           <button
             onClick={() => setMode("camera")}
-            className={`flex-1 py-2 rounded-lg text-sm font-medium ${
-              mode === "camera" ? "bg-blue-600 text-white" : "bg-gray-100 text-gray-700"
+            className={`flex-1 py-2 rounded-xl text-xs tracking-widest uppercase transition-all ${
+              mode === "camera" ? "text-white shadow" : "text-rose-700 bg-rose-50"
             }`}
+            style={mode === "camera" ? { backgroundColor: "#9f3f4f" } : {}}
           >
-            📷 Camera
+            Camera
           </button>
           <button
             onClick={() => setMode("upload")}
-            className={`flex-1 py-2 rounded-lg text-sm font-medium ${
-              mode === "upload" ? "bg-blue-600 text-white" : "bg-gray-100 text-gray-700"
+            className={`flex-1 py-2 rounded-xl text-xs tracking-widest uppercase transition-all ${
+              mode === "upload" ? "text-white shadow" : "text-rose-700 bg-rose-50"
             }`}
+            style={mode === "upload" ? { backgroundColor: "#9f3f4f" } : {}}
           >
-            🖼 Upload
+            Upload
           </button>
         </div>
 
@@ -97,7 +107,8 @@ export default function MatchPage() {
             />
             <button
               onClick={capture}
-              className="w-full bg-gray-800 text-white py-2 rounded-xl text-sm font-medium"
+              className="w-full py-2 rounded-xl text-xs tracking-widest uppercase text-white"
+              style={{ backgroundColor: "#9f3f4f" }}
             >
               Capture Selfie
             </button>
@@ -105,33 +116,30 @@ export default function MatchPage() {
         ) : (
           <div
             {...getRootProps()}
-            className="border-2 border-dashed border-gray-300 rounded-xl p-8 text-center cursor-pointer"
+            className="border-2 border-dashed border-rose-200 rounded-xl p-8 text-center cursor-pointer bg-rose-50"
           >
             <input {...getInputProps()} />
-            <p className="text-gray-500 text-sm">Tap to select a selfie</p>
+            <p className="text-2xl mb-2">🤳</p>
+            <p className="text-rose-400 text-sm">Tap to select your selfie</p>
           </div>
         )}
 
         {selfiePreview && (
           <div className="mt-3 flex items-center gap-3">
-            <img
-              src={selfiePreview}
-              alt="selfie"
-              className="w-16 h-16 rounded-xl object-cover border border-gray-200"
-            />
-            <p className="text-sm text-green-600 font-medium">✓ Selfie ready</p>
+            <img src={selfiePreview} alt="selfie" className="w-14 h-14 rounded-full object-cover border-2 border-rose-200" />
+            <p className="text-sm text-rose-500">✓ Selfie ready</p>
           </div>
         )}
       </div>
 
       {/* Options */}
-      <div className="bg-white border border-gray-200 rounded-xl p-4 mb-4 space-y-3">
+      <div className="bg-white border border-rose-100 rounded-2xl p-5 mb-4 shadow-sm space-y-4">
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">Event (optional)</label>
+          <label className="block text-sm text-rose-700 tracking-wide mb-1">Search in event</label>
           <select
             value={selectedEvent}
             onChange={(e) => setSelectedEvent(e.target.value)}
-            className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
+            className="w-full border border-rose-200 rounded-xl px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-rose-300 bg-rose-50"
           >
             <option value="">All events</option>
             {events.map((ev) => (
@@ -139,50 +147,53 @@ export default function MatchPage() {
             ))}
           </select>
         </div>
-
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
-            Similarity: {Math.round(threshold * 100)}%
+          <label className="block text-sm text-rose-700 tracking-wide mb-1">
+            Match strictness: {Math.round(threshold * 100)}%
           </label>
           <input
-            type="range"
-            min={0.65}
-            max={0.9}
-            step={0.05}
+            type="range" min={0.65} max={0.9} step={0.05}
             value={threshold}
             onChange={(e) => setThreshold(parseFloat(e.target.value))}
-            className="w-full accent-blue-600"
+            className="w-full accent-rose-500"
           />
-          <p className="text-xs text-gray-400 mt-1">Higher = stricter. Minimum 65%.</p>
+          <p className="text-xs text-rose-300 mt-1">Higher = fewer but more accurate results</p>
         </div>
       </div>
 
-      {error && <p className="text-red-500 text-sm mb-3">{error}</p>}
+      {error && <p className="text-red-400 text-sm mb-3 text-center">{error}</p>}
 
       <button
         onClick={handleMatch}
         disabled={loading || !selfieBlob}
-        className="w-full bg-blue-600 text-white py-3 rounded-xl font-semibold text-sm hover:bg-blue-700 disabled:opacity-50 mb-2"
+        className="w-full py-3 rounded-xl text-sm tracking-widest uppercase font-light text-white disabled:opacity-40 mb-2"
+        style={{ backgroundColor: "#9f3f4f" }}
       >
         {loading ? "Searching..." : "Find My Photos"}
       </button>
 
       {loading && (
-        <p className="text-xs text-gray-400 text-center mb-4">This may take 10–30 seconds...</p>
+        <p className="text-xs text-rose-300 text-center mb-4">This may take 10–30 seconds...</p>
       )}
 
       {/* Results */}
       {result && (
-        <div className="mt-4">
-          <h2 className="text-base font-semibold mb-3">
-            {result.matchCount === 0
-              ? "No matches found. Try lowering the threshold."
-              : `Found ${result.matchCount} photo${result.matchCount !== 1 ? "s" : ""} with you!`}
-          </h2>
+        <div className="mt-6">
+          <div className="text-center mb-5">
+            <p className="text-rose-300 text-xs tracking-widest uppercase mb-1">✦ Results ✦</p>
+            <h2 className="text-2xl text-rose-900" style={{ fontFamily: "'Cormorant Garamond', serif", fontStyle: "italic" }}>
+              {result.matchCount === 0
+                ? "No matches found"
+                : `${result.matchCount} photo${result.matchCount !== 1 ? "s" : ""} found`}
+            </h2>
+            {result.matchCount === 0 && (
+              <p className="text-xs text-rose-300 mt-1">Try lowering the match strictness</p>
+            )}
+          </div>
           <div className="grid grid-cols-2 gap-3">
             {result.matches.map((match) => (
-              <div key={match.photoId} className="bg-white border border-gray-200 rounded-xl overflow-hidden shadow-sm">
-                <div className="w-full bg-gray-100 flex items-center justify-center">
+              <div key={match.photoId} className="bg-white border border-rose-100 rounded-2xl overflow-hidden shadow-sm">
+                <div className="w-full bg-rose-50 flex items-center justify-center">
                   <img
                     src={thumbnailUrl(match.downloadUrl)}
                     alt={match.filename}
@@ -190,17 +201,18 @@ export default function MatchPage() {
                     loading="lazy"
                   />
                 </div>
-                <div className="p-2">
-                  <p className="text-xs font-semibold text-blue-600">{match.similarityPercent}% match</p>
-                  {match.eventName && <p className="text-xs text-gray-400">{match.eventName}</p>}
+                <div className="p-3">
+                  <p className="text-xs font-semibold text-rose-600">{match.similarityPercent}% match</p>
+                  {match.eventName && <p className="text-xs text-rose-300">{match.eventName}</p>}
                   <a
                     href={match.downloadUrl}
                     download={match.filename}
                     target="_blank"
                     rel="noreferrer"
-                    className="mt-1 block text-xs text-center bg-blue-50 text-blue-600 rounded px-2 py-1"
+                    className="mt-2 block text-xs text-center rounded-xl px-2 py-1.5 text-white"
+                    style={{ backgroundColor: "#9f3f4f" }}
                   >
-                    Download Full
+                    Download
                   </a>
                 </div>
               </div>
