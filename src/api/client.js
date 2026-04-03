@@ -25,7 +25,7 @@ export const uploadPhotos = (eventId, files, onProgress) => {
     .then((r) => r.data);
 };
 
-export const matchSelfie = (selfieBlob, eventId, threshold = 0.55) => {
+export const matchSelfie = (selfieBlob, eventId, threshold = 0.65) => {
   const formData = new FormData();
   formData.append("selfie", selfieBlob, "selfie.jpg");
   if (eventId) formData.append("eventId", eventId);

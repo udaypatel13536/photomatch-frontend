@@ -6,7 +6,7 @@ import { getEvents, matchSelfie } from "../api/client";
 export default function MatchPage() {
   const [events, setEvents] = useState([]);
   const [selectedEvent, setSelectedEvent] = useState("");
-  const [threshold, setThreshold] = useState(0.55);
+  const [threshold, setThreshold] = useState(0.65);
   const [mode, setMode] = useState("camera"); // "camera" | "upload"
   const [selfiePreview, setSelfiePreview] = useState(null);
   const [selfieBlob, setSelfieBlob] = useState(null);
@@ -157,7 +157,7 @@ export default function MatchPage() {
             </label>
             <input
               type="range"
-              min={0.3}
+              min={0.65}
               max={0.9}
               step={0.05}
               value={threshold}
@@ -165,7 +165,7 @@ export default function MatchPage() {
               className="w-full accent-blue-600"
             />
             <p className="text-xs text-gray-400 mt-1">
-              Higher = stricter matching. Start at 55%.
+              Higher = stricter matching. Minimum 65% to avoid false matches.
             </p>
           </div>
 
