@@ -182,12 +182,14 @@ export default function MatchPage() {
           <div className="grid grid-cols-2 gap-3">
             {result.matches.map((match) => (
               <div key={match.photoId} className="bg-white border border-gray-200 rounded-xl overflow-hidden shadow-sm">
-                <img
-                  src={thumbnailUrl(match.downloadUrl)}
-                  alt={match.filename}
-                  className="w-full h-36 object-contain bg-gray-100"
-                  loading="lazy"
-                />
+                <div className="w-full bg-gray-100 flex items-center justify-center">
+                  <img
+                    src={thumbnailUrl(match.downloadUrl)}
+                    alt={match.filename}
+                    className="w-full h-auto"
+                    loading="lazy"
+                  />
+                </div>
                 <div className="p-2">
                   <p className="text-xs font-semibold text-blue-600">{match.similarityPercent}% match</p>
                   {match.eventName && <p className="text-xs text-gray-400">{match.eventName}</p>}
